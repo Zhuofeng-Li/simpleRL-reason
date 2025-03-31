@@ -8,15 +8,15 @@ export RAY_DEDUP_LOGS=1
 
 
 export PROJECT_NAME=verl_train
-export WANDB_API_KEY=TO_BE_FILLED
+export WANDB_API_KEY="31800be459915fc29628b8c03920c3b526d64109"
 export WANDB_OFFICIAL=1
 export VLLM_ATTENTION_BACKEND=XFORMERS
-export HDFS_DATA_PATH=TO_BE_FILLED
-export HDFS_MODEL_PATH=TO_BE_FILLED
-export HDFS_CHECKPOINT_PATH=TO_BE_FILLED
-export HDFS_LOG_PATH=TO_BE_FILLED
+export HDFS_DATA_PATH=data # TODO: update
+export HDFS_MODEL_PATH=Qwen
+export HDFS_CHECKPOINT_PATH="model"
+export HDFS_LOG_PATH="."
 export RUN_NAME=verl-grpo
-export ARNOLD_WORKER_NUM=TO_BE_FILLED # number of nodes you want to use 
+export ARNOLD_WORKER_NUM=1 # number of nodes you want to use # TODO: update
 
 
 # Default values
@@ -46,6 +46,10 @@ REMOVE_CLIP=False
 ROLLOUT_TENSOR_MODEL_PARALLEL_SIZE=2
 MICRO_ROLLOUT_BATCH_SIZE=1024
 REMOVE_PREVIOUS_CKPT=False
+# Ray
+HEAD_IP=0.0.0.0
+HEAD_PORT=6379
+WORKING_DIR="/data/zhuofeng/simpleRL-reason"
 
 generate_suffix() {
   local suffix=""
@@ -209,11 +213,11 @@ ray job submit --address=${HEAD_IP}:${HEAD_PORT} \
   algorithm.kl_ctrl.kl_coef=$KL_COEF \
   critic.ppo_micro_batch_size_per_gpu=4 \
   trainer.critic_warmup=0 \
-  trainer.logger=['console','wandb'] \
+  trainer.logger=['wandb'] \
   trainer.project_name=$PROJECT_NAME \
   trainer.remove_previous_ckpt=$REMOVE_PREVIOUS_CKPT \
   trainer.experiment_name=$RUN_NAME \
-  trainer.n_gpus_per_node=8 \
+  trainer.n_gpus_per_node=4 \
   trainer.nnodes=$ARNOLD_WORKER_NUM \
   trainer.remove_clip=$REMOVE_CLIP \
   trainer.save_freq=$SAVE_FREQ \
