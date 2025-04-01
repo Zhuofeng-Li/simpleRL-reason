@@ -38,7 +38,7 @@ dependencies = [
     "omegaconf==2.4.0.dev3",
     "numpy",
     "pybind11",
-    "ray[default]==2.10.0",
+    "ray>=2.10.0",
     "tensordict",
     "transformers<4.48",
     "vllm<=0.6.3",

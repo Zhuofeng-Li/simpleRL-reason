@@ -123,4 +123,4 @@ examples/data_preprocess/data
 model_scope_model
 
 *.log
-data/
+data
